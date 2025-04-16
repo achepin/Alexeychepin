@@ -1,3 +1,5 @@
+console.log("Скрипт загружен!");
+
 document.getElementById('contactForm').addEventListener('submit', function (e) {
   e.preventDefault();
 
@@ -11,6 +13,8 @@ document.getElementById('contactForm').addEventListener('submit', function (e) {
   const CHAT_ID = '199899972';
   const URL = `https://api.telegram.org/bot${TOKEN}/sendMessage`;
 
+  console.log("Отправка в Telegram:", text);
+
   fetch(URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -19,11 +23,16 @@ document.getElementById('contactForm').addEventListener('submit', function (e) {
       text: text,
     }),
   })
-  .then(() => {
+  .then(response => {
+    if (!response.ok) {
+      throw new Error("Ошибка HTTP: " + response.status);
+    }
+    console.log("Успешно отправлено в Telegram");
     document.getElementById('formMessage').textContent = 'Заявка отправлена!';
     this.reset();
   })
-  .catch(() => {
+  .catch(error => {
+    console.error("Ошибка при отправке:", error);
     document.getElementById('formMessage').textContent = 'Ошибка при отправке';
   });
 });
