@@ -4,6 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Алексей Чепин — Фотограф в Саранске</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
@@ -31,19 +35,37 @@
     <h2>Связаться со мной</h2>
     <form id="contactForm">
       <input type="text" name="name" autocomplete="name" placeholder="Ваше имя" required />
-      <input type="tel" name="phone" autocomplete="tel" placeholder="Телефон" required />
+      <input type="tel" name="phone" autocomplete="tel" placeholder="Телефон" required pattern="\+?[0-9\s\-\(\)]{10,}" title="Введите корректный номер телефона" />
 
       <label class="consent">
         <input type="checkbox" id="consentCheckbox" required />
         Я даю согласие на обработку персональных данных
       </label>
 
-      <button type="submit" disabled id="submitBtn">Отправить</button>
+      <button type="submit" disabled id="submitBtn">
+        Отправить
+        <div class="spinner" id="submitSpinner"></div>
+      </button>
     </form>
     <p id="formMessage"></p>
   </section>
 
+  <div class="modal" id="imageModal">
+    <span class="modal-close" id="modalClose">&times;</span>
+    <button class="modal-nav prev" id="prevImage">&lt;</button>
+    <button class="modal-nav next" id="nextImage">&gt;</button>
+    <img id="modalImage" src="" alt="Увеличенное изображение" />
+  </div>
+
   <footer>
+    <div class="social-links">
+      <a href="https://vk.com/chepin" target="_blank" aria-label="ВКонтакте">
+        <i class="fab fa-vk"></i>
+      </a>
+      <a href="https://www.instagram.com/achepin" target="_blank" aria-label="Instagram">
+        <i class="fab fa-instagram"></i>
+      </a>
+    </div>
     <p>&copy; 2025 Алексей Чепин</p>
   </footer>
 
