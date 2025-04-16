@@ -1,13 +1,20 @@
 console.log("Скрипт загружен!");
 
-document.getElementById('contactForm').addEventListener('submit', function (e) {
+const form = document.getElementById('contactForm');
+const checkbox = document.getElementById('consentCheckbox');
+const submitBtn = document.getElementById('submitBtn');
+
+checkbox.addEventListener('change', () => {
+  submitBtn.disabled = !checkbox.checked;
+});
+
+form.addEventListener('submit', function (e) {
   e.preventDefault();
 
-  const name = this.querySelector('input[type="text"]').value;
-  const email = this.querySelector('input[type="email"]').value;
-  const message = this.querySelector('textarea').value;
+  const name = this.querySelector('input[name="name"]').value;
+  const phone = this.querySelector('input[name="phone"]').value;
 
-  const text = `📸 Новая заявка с сайта:\n\n👤 Имя: ${name}\n✉️ Email: ${email}\n💬 Сообщение: ${message}`;
+  const text = `📸 Новая заявка с сайта:\n\n👤 Имя: ${name}\n📞 Телефон: ${phone}`;
 
   const TOKEN = '7667420836:AAETXgwHqVNz32upAx-4iOHhLJ-C4NSEYPU';
   const CHAT_ID = '199899972';
@@ -30,6 +37,7 @@ document.getElementById('contactForm').addEventListener('submit', function (e) {
     console.log("Успешно отправлено в Telegram");
     document.getElementById('formMessage').textContent = 'Заявка отправлена!';
     this.reset();
+    submitBtn.disabled = true;
   })
   .catch(error => {
     console.error("Ошибка при отправке:", error);
